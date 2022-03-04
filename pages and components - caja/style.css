@@ -1,0 +1,171 @@
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+@keyframes rotate_scale {
+    0% {
+        transform: scale(0) rotate(0) translate(25%, -50%);
+        opacity: 1;
+   }
+    100% {
+        transform: scale(6) rotate(250deg) translate(-50%, -50%);
+        opacity: 0;
+   }
+}
+body {
+    position: relative;
+}
+body .icon {
+    position: fixed;
+    z-index: 20;
+    top: 3%;
+    right: 5%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    line-height: 200%;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 1s ease-in;
+    /*background-color: linear-gradient(90deg, rgba(0,4,40,1) 0%, rgba(0,78,146,1) 50%);*/
+}
+body .icon.change-backGround {
+    background-color: #fff;
+}
+body .icon i {
+    color: #fff;
+    font-size: 2em;
+    line-height: 50px;
+    transition: all 1s ease-in;
+}
+body .icon i::before {
+    transition: all 1s ease-in;
+}
+body .icon i.clicked::before {
+    content: '\f00d';
+    color: #004e92;
+    transition: 0.3s ease-in;
+}
+#main {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background: linear-gradient(90deg, rgba(252,0,255,1) 12%, rgba(0,219,222,1) 91%);
+    overflow: hidden;
+}
+
+#navbar {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(252,0,255,1) 12%, rgba(0,219,222,1) 91%);
+    display: flex;
+    transform: translateY(-100%);
+    transition: 1s ease;
+}
+#navbar ul#links {
+    list-style: none;
+    font-family:"Montserrat";
+    font-style: regular;
+}
+#navbar ul#links li {
+    padding: 5px;
+    margin: 15px 0 0;
+    text-align: center;
+    position: relative;
+}
+#navbar ul#links li::before {
+    content: '';
+    position: absolute;
+    bottom: -5%;
+    left: -5%;
+    width: 10px;
+    height: 10px;
+    border: 3px solid #fff;
+    border-top: none;
+    border-right: none;
+    transition: all 0.4s ease-in;
+}
+#navbar ul#links li:hover::before {
+    width: 100%;
+    height: 0;
+    left: 0;
+}
+#navbar ul#links li::after {
+    content: '';
+    position: absolute;
+    top: -5%;
+    right: -5%;
+    width: 10px;
+    height: 10px;
+    border: 3px solid #fff;
+    border-bottom: none;
+    border-left: none;
+    transition: all 0.4s ease-in;
+}
+#navbar ul#links li:hover::after {
+    width: 100%;
+    height: 0;
+    right: 0;
+}
+#navbar ul#links li a {
+    text-decoration: none;
+    color: #fff;
+    /*font-weight: bold;*/
+    font-size: 1.5em;
+    text-transform: uppercase;
+    height: 100%;
+    width: 100%;
+}
+
+.masthead {
+    width:100%;
+    height:100vh;
+    background: linear-gradient(90deg, rgba(252,0,255,1) 12%, rgba(0,219,222,1) 91%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color:white;
+}
+
+.naslov{
+	font-family:"Cinzel";
+    font-style: bold;
+	font-size:50px;
+    text-align:center;
+}
+
+.lead{
+	font-family:"Lato";
+    font-family:"Montserrat";
+    font-style: regular;
+	font-size:20px;
+}
+
+
+.booking-form {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 6px;
+}
+
+#booking {
+    font-family: 'PT Sans', sans-serif;
+    background-size: cover;
+    background-position: center;
+}
+
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+:after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
