@@ -34,10 +34,43 @@ const createBus = async (req, res) => {
 }
 
 const getAllBuses = async (req, res) => {
-	const query = Bus.find();
+	let query = Bus.find();
 	// pretraga po datumu, vremenu, destinaciji, ceni
+	if(req.query.polaziste)
+		query = query.where("polaziste", { $regex: new RegExp(req.query.polaziste.toLowerCase(), "i") })
+	if(req.query.destinacija)
+		query = query.where("destinacija", { $regex: new RegExp(req.query.destinacija.toLowerCase(), "i") })
+	if(req.query.datumod)
+	{
+		const d = new Date();
+		const params = req.query.datumod.split("-");
+		d.setDate(params[0]);
+		d.setMonth(params[1] - 1);
+		d.setFullYear(params[2]);
+		d.setHours(0);
+		d.setMinutes(0);
+		d.setSeconds(0);
+		query = query.where("polazak").gte(d);
+	}
+	if(req.query.datumdo)
+	{
+		const d = new Date();
+		const params = req.query.datumdo.split("-");
+		d.setDate(params[0]);
+		d.setMonth(params[1] - 1);
+		d.setFullYear(params[2]);
+		d.setHours(0);
+		d.setMinutes(0);
+		d.setSeconds(0);
+		query = query.where("polazak").lte(d);
+	}
+	if(req.query.cenaod)
+		query = query.where("cena").gte(req.query.cenaod);
+	if(req.query.cenado)
+		query = query.where("cena").lte(req.query.cenado);
+	
 	const buses = await query;
-	res.status(StatusCodes.OK).json({ok: true, buses});
+	res.status(StatusCodes.OK).json({ok: true, count: buses.length, buses});
 }
 
 const getSingleBus = async (req, res) => {
