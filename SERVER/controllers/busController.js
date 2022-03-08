@@ -100,8 +100,8 @@ const bookTickets = async (req, res) => {
 		throw new Errors.BadRequestError("Email je obavezno");
 	if(!validator.isEmail(email))
 		throw new Errors.BadRequestError("Neispravan email");
-	if(!karte.every(karta => !bus.sedista[karta.red][karta.kolona]))
-		throw new Errors.BadRequestError("Sedište je već zauzeto");
+	// if(!karte.every(karta => !bus.sedista[karta.red][karta.kolona]))
+	// 	throw new Errors.BadRequestError("Sedište je već zauzeto");
 	for(let karta of karte)
 	{
 		bus.sedista[karta.red][karta.kolona] = {
