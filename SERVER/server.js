@@ -12,7 +12,7 @@ const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 server.set('trust proxy', 1);
 server.use(
