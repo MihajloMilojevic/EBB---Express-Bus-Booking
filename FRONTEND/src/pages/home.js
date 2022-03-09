@@ -37,7 +37,7 @@ export default function Home(params) {
 
 	const queryBuses = async query => {
 		try {
-			const response = await fetch(`/api/bus?${query}`);
+			const response = await fetch(`https://ebb-express-bus-booking.herokuapp.com/api/bus?${query}`);
 			const data = await response.json();
 			if(!data.ok)
 			{
