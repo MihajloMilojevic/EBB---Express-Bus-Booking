@@ -63,10 +63,11 @@ export default function Home(params) {
 		let query = [];
 		for(let name in form)
 		{
-			if(form.name)
+			console.log(name, form[name]);
+			if(form[name])
 				query.push({
 					name,
-					value: form[name]
+					"value": form[name]
 				})
 		}
 		query = query.map(el => `${el.name}=${el.value}`);
