@@ -2,7 +2,7 @@ import {useState} from "react";
 import Seat from "../components/seat";
 
 export default function Home(params) {
-	const [form, setForm] = useState({
+	const [formFilter, setFormFilter] = useState({
 		polaziste: "",
 		destinacija: "",
 		cenaod: 0,
@@ -10,6 +10,11 @@ export default function Home(params) {
 		datumod: "",
 		datumdo: ""
 	});
+	const [formBook, setFormBook] = useState({
+		ime: "",
+		prezime: "",
+		email: ""
+	})
 	const [buses, setBuses] = useState([]);
 	const [selectedBus, setSelectedBus] = useState(null);
 	const [book, setBook] = useState([]);
@@ -17,8 +22,8 @@ export default function Home(params) {
 	let SeatNuber = 0;
 
 	const handleTextChange = e => {
-		setForm({
-			...form,
+		setFormFilter({
+			...formFilter,
 			[e.target.name]: e.target.value
 		})
 	}
@@ -27,14 +32,14 @@ export default function Home(params) {
 		const value = e.target.value;
 		const name = e.target.name;
 		if(!value) {
-			setForm({
-				...form,
+			setFormFilter({
+				...formFilter,
 				[name]: ""	
 			})
 		}
 		else {
-			setForm({
-				...form,
+			setFormFilter({
+				...formFilter,
 				[name]: value.split("-").reverse().join("-")
 			})
 		}
@@ -64,15 +69,15 @@ export default function Home(params) {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log(JSON.stringify(form))
+		console.log(JSON.stringify(formFilter))
 		let query = [];
-		for(let name in form)
+		for(let name in formFilter)
 		{
-			console.log(name, form[name]);
-			if(form[name])
+			console.log(name, formFilter[name]);
+			if(formFilter[name])
 				query.push({
 					name,
-					"value": form[name]
+					"value": formFilter[name]
 				})
 		}
 		query = query.map(el => `${el.name}=${el.value}`);
@@ -80,21 +85,97 @@ export default function Home(params) {
 		queryBuses(queryString);
 	}
 
+	const BookTickets = async () => {
+		try {
+			const body = {
+				ime: formBook.ime,
+				prezime: formBook.prezime, 
+				email: formBook.email,
+				karte: book.map(ticket => ({
+					red: ticket.row,
+					kolona: ticket.col
+				}))
+			}
+			const method = "PATCH";
+			const headers = {
+				"Content-Type": "application/json"
+			}
+			const options = {
+				method, headers,
+				body: JSON.stringify(body)
+			}
+			const response = await fetch(`https://ebb-express-bus-booking.herokuapp.com/api/bus/${selectedBus._id}/book`, options);
+			const data = await response.json();
+			if(!data.ok) {
+				console.error(data.message);
+				alert(data.message);
+				return;
+			}
+			queryBuses()
+			alert("Upešno rezervisano");
+		} catch (error) {
+			console.error(error);
+			alert("Došlo je do greške, probajte ponovo kasnije")
+		}
+	}
+
+	const handleBook = e => {
+		e.preventDefault();
+		console.log(formBook)
+		if(book.length === 0)
+		{
+			alert("Odaberite sedišta za rezervaciju");
+			return;
+		}
+		if(!formBook.ime ) {
+			alert("Ime je obavezno");
+			return;
+		}
+		if(!formBook.prezime ) {
+			alert("Prezime je obavezno");
+			return;
+		}
+		if(!formBook.email ) {
+			alert("Email je obavezan");
+			return;
+		}
+		if(/[0-9!@#\$%\^\&*\)\(+=.:;,"'_-]/.test(formBook.ime)) {
+			alert("Ime mora da sadrži samo slova");
+			return;
+		}
+		if(/[0-9!@#\$%\^\&*\)\(+=.:;,"'_-]/.test(formBook.prezime)) {
+			alert("Prezime mora da sadrži samo slova");
+			return;
+		}
+		if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(formBook.email)) {
+			alert("Neispravan email");
+			return;
+		}
+		BookTickets()
+	}
+
+	const handleBookInputChange = e => {
+		setFormBook({
+			...formBook,
+			[e.target.name]: e.target.value
+		})
+	}
+
 	return (
 	<>
 		<h1>EBB - Express Bus Booking</h1>
 		<form onSubmit={handleSubmit}>
 			<label>Polazište: </label>
-			<input type="text" name="polaziste" value={form.polaziste} onChange={handleTextChange} />
+			<input type="text" name="polaziste" value={formFilter.polaziste} onChange={handleTextChange} />
 			<br/>
 			<label>Destinacija: </label>
-			<input type="text" name="destinacija" value={form.destinacija} onChange={handleTextChange} />
+			<input type="text" name="destinacija" value={formFilter.destinacija} onChange={handleTextChange} />
 			<br/>
 			<label>Minimalna cena: </label>
-			<input type="number" name="cenaod" value={form.cenaod} onChange={handleTextChange} />
+			<input type="number" name="cenaod" value={formFilter.cenaod} onChange={handleTextChange} />
 			<br/>
 			<label>Maximalna cena: </label>
-			<input type="number" name="cenado" value={form.cenado} onChange={handleTextChange} />
+			<input type="number" name="cenado" value={formFilter.cenado} onChange={handleTextChange} />
 			<br/>
 			<label>Od datuma: </label>
 			<input type="date" name="datumod" onChange={handleDateChange} />
@@ -132,40 +213,56 @@ export default function Home(params) {
 		}
 		{
 			selectedBus && 
-			<table>
-				<tbody>
-					{
-						selectedBus.sedista.map((row, rowIndex) => (
-							<tr key={"row-" + rowIndex}>
-								{
-									row.map((col, colIndex) => {
-										SeatNuber++;
-										let color = "gray";
-										if(book.findIndex(el => el.row === rowIndex && el.col === colIndex) >= 0)
-											color = "lime";
-										if(selectedBus.sedista[rowIndex][colIndex].zauzeto)
-											color = "red";
-										return <Seat 
-													key={"row-" + rowIndex + "-col-" + colIndex}
-													color={color} 
-													onClick={() => {
-														if(selectedBus.sedista[rowIndex][colIndex].zauzeto)
-															return;
-														if(book.findIndex(el => el.row === rowIndex && el.col === colIndex) >= 0)
-															setBook(book.filter(el => !(el.row === rowIndex && el.col === colIndex)))
-														else
-															setBook([...book, {row: rowIndex, col: colIndex}])
-														console.log(book);
-													}}
-													number={SeatNuber}	
-												/>
-									})
-								}
-							</tr>
-						))
-					}
-				</tbody>
-			</table>
+			<>
+				<table>
+					<tbody>
+						{
+							selectedBus.sedista.map((row, rowIndex) => (
+								<tr key={"row-" + rowIndex}>
+									{
+										row.map((col, colIndex) => {
+											SeatNuber++;
+											let color = "gray";
+											if(book.findIndex(el => el.row === rowIndex && el.col === colIndex) >= 0)
+												color = "lime";
+											if(selectedBus.sedista[rowIndex][colIndex].zauzeto)
+												color = "red";
+											return <Seat 
+														key={"row-" + rowIndex + "-col-" + colIndex}
+														color={color} 
+														onClick={() => {
+															if(selectedBus.sedista[rowIndex][colIndex].zauzeto)
+																return;
+															if(book.findIndex(el => el.row === rowIndex && el.col === colIndex) >= 0)
+																setBook(book.filter(el => !(el.row === rowIndex && el.col === colIndex)))
+															else
+																setBook([...book, {row: rowIndex, col: colIndex}])
+															console.log(book);
+														}}
+														number={SeatNuber}	
+													/>
+										})
+									}
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+				<form
+					onSubmit={handleBook}
+				>
+					<label>Ime: </label>
+					<input type="text" name="ime" value={formBook.ime} onChange={handleBookInputChange} />
+					<br/>
+					<label>Prezime: </label>
+					<input type="text" name="prezime" value={formBook.prezime} onChange={handleBookInputChange} />
+					<br/>
+					<label>Email: </label>
+					<input type="text" name="email" value={formBook.email} onChange={handleBookInputChange} />
+					<br/>
+					<button type="submit">Rezervisi</button>
+				</form>
+			</>
 		}
 	</>)
 }
