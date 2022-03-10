@@ -1,4 +1,5 @@
 import {useState} from "react";
+import Seat from "../components/seat";
 
 export default function Home(params) {
 	const [form, setForm] = useState({
@@ -10,6 +11,10 @@ export default function Home(params) {
 		datumdo: ""
 	});
 	const [buses, setBuses] = useState([]);
+	const [selectedBus, setSelectedBus] = useState(null);
+	const [book, setBook] = useState([]);
+
+	let SeatNuber = 0;
 
 	const handleTextChange = e => {
 		setForm({
@@ -101,7 +106,7 @@ export default function Home(params) {
 		</form>
 
 		{
-			buses.map(bus => {
+			buses.map((bus, index) => {
 				const d = new Date(bus.polazak);
 				return (
 					<div 
@@ -111,6 +116,11 @@ export default function Home(params) {
 							margin: "20px",
 							padding: "20px",
 						}}
+						onClick={() => {
+							SeatNuber = 0; 
+							setBook([]);
+							setSelectedBus(buses[index])	
+						}}
 					>
 						<p>Polazište: {bus.polaziste}</p>
 						<p>Destinacija: {bus.destinacija}</p>
@@ -119,6 +129,43 @@ export default function Home(params) {
 					</div>
 				)
 			})
+		}
+		{
+			selectedBus && 
+			<table>
+				<tbody>
+					{
+						selectedBus.sedista.map((row, rowIndex) => (
+							<tr key={"row-" + rowIndex}>
+								{
+									row.map((col, colIndex) => {
+										SeatNuber++;
+										let color = "gray";
+										if(book.findIndex(el => el.row === rowIndex && el.col === colIndex) >= 0)
+											color = "lime";
+										if(selectedBus.sedista[rowIndex][colIndex].zauzeto)
+											color = "red";
+										return <Seat 
+													key={"row-" + rowIndex + "-col-" + colIndex}
+													color={color} 
+													onClick={() => {
+														if(selectedBus.sedista[rowIndex][colIndex].zauzeto)
+															return;
+														if(book.findIndex(el => el.row === rowIndex && el.col === colIndex) >= 0)
+															setBook(book.filter(el => !(el.row === rowIndex && el.col === colIndex)))
+														else
+															setBook([...book, {row: rowIndex, col: colIndex}])
+														console.log(book);
+													}}
+													number={SeatNuber}	
+												/>
+									})
+								}
+							</tr>
+						))
+					}
+				</tbody>
+			</table>
 		}
 	</>)
 }
