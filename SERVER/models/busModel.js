@@ -4,15 +4,6 @@ const seatShema = new mongoose.Schema({
 	zauzeto: {
 		type: Boolean,
 		default: false
-	},
-	email: {
-		type: String,
-	},
-	ime: {
-		type: String,
-	},
-	prezime: {
-		type: String,
 	}
 }, { _id : false })
 
@@ -38,5 +29,7 @@ const busSchema = new mongoose.Schema({
 		required: [true, "Sedišta su obavezna"]
 	}
 })
+
+// post "remove" remove reservations
 
 module.exports = mongoose.model("Bus", busSchema);
