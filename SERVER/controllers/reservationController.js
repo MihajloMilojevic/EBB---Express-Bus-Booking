@@ -5,6 +5,8 @@ const Reservation = require("../models/reservationModel");
 const Errors = require("../errors");
 const StatusCodes = require("http-status-codes");
 
+const FRONTEND_URL = "https://express-bus-booking.netlify.app";
+
 const makeReservation = async (req, res) => {
 	
 	const busId = req.body.busId;
@@ -45,6 +47,7 @@ const makeReservation = async (req, res) => {
 		<h1>Express Bus Booking</h1>
 		<h5>Uspešna rezervacija</h5>
 		<p>Id vaše rezervacije: ${reservation._id}</p>
+		<a href="${FRONTEND_URL}/cancel/${reservation._id}" target="_blank">OTKAŽI REZERVACIJU</a>
 		`,
 		text: "Uspešno ste rezervisali karte"
 	}

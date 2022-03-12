@@ -16,9 +16,9 @@ export default function Home(params) {
 		email: ""
 	})
 	const [buses, setBuses] = useState([]);
-	const [selectedBus, setSelectedBus] = useState(null);
+	const [selectedBusIndex, setSelectedBusIndex] = useState(null);
 	const [book, setBook] = useState([]);
-
+	const selectedBus = selectedBusIndex !== null ? buses[selectedBusIndex] : null
 	let SeatNuber = 0;
 
 	const handleTextChange = e => {
@@ -88,6 +88,7 @@ export default function Home(params) {
 	const BookTickets = async () => {
 		try {
 			const body = {
+				busId: selectedBus._id,
 				ime: formBook.ime,
 				prezime: formBook.prezime, 
 				email: formBook.email,
@@ -96,7 +97,7 @@ export default function Home(params) {
 					kolona: ticket.col
 				}))
 			}
-			const method = "PATCH";
+			const method = "POST";
 			const headers = {
 				"Content-Type": "application/json"
 			}
@@ -104,7 +105,7 @@ export default function Home(params) {
 				method, headers,
 				body: JSON.stringify(body)
 			}
-			const response = await fetch(`https://ebb-express-bus-booking.herokuapp.com/api/bus/${selectedBus._id}/book`, options);
+			const response = await fetch(`https://ebb-express-bus-booking.herokuapp.com/api/reservation`, options);
 			const data = await response.json();
 			if(!data.ok) {
 				console.error(data.message);
@@ -113,6 +114,7 @@ export default function Home(params) {
 			}
 			queryBuses()
 			alert("Upešno rezervisano");
+			setBook([]);
 		} catch (error) {
 			console.error(error);
 			alert("Došlo je do greške, probajte ponovo kasnije")
@@ -200,7 +202,7 @@ export default function Home(params) {
 						onClick={() => {
 							SeatNuber = 0; 
 							setBook([]);
-							setSelectedBus(buses[index])	
+							setSelectedBusIndex(index)	
 						}}
 					>
 						<p>Polazište: {bus.polaziste}</p>
@@ -225,19 +227,18 @@ export default function Home(params) {
 											let color = "gray";
 											if(book.findIndex(el => el.row === rowIndex && el.col === colIndex) >= 0)
 												color = "lime";
-											if(selectedBus.sedista[rowIndex][colIndex].zauzeto)
+											if(selectedBus.sedista[rowIndex][colIndex])
 												color = "red";
 											return <Seat 
 														key={"row-" + rowIndex + "-col-" + colIndex}
 														color={color} 
 														onClick={() => {
-															if(selectedBus.sedista[rowIndex][colIndex].zauzeto)
+															if(selectedBus.sedista[rowIndex][colIndex])
 																return;
 															if(book.findIndex(el => el.row === rowIndex && el.col === colIndex) >= 0)
 																setBook(book.filter(el => !(el.row === rowIndex && el.col === colIndex)))
 															else
 																setBook([...book, {row: rowIndex, col: colIndex}])
-															console.log(book);
 														}}
 														number={SeatNuber}	
 													/>

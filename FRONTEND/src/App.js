@@ -4,6 +4,7 @@ import Authors from "./pages/authors";
 import Instructions from "./pages/instructions";
 import NotFound from "./pages/404";
 import Nav from "./components/nav";
+import CancelReservation from "./pages/cancelReservation";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/instructions" exect element={<Instructions />} />
           <Route path="/authors" element={<Authors />} />
+          <Route path="/cancel/:id" element={<CancelReservation />} />
           <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
