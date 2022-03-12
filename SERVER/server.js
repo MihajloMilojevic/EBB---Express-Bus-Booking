@@ -4,6 +4,7 @@ const connetDB = require("./database/connect")
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 const busRouter = require("./routers/busRouter");
+const reservationRouter = require("./routers/reservationRouter");
 const express = require('express');
 const server = express();
 
@@ -28,6 +29,7 @@ server.use(xss());
 
 // server.use(express.static("public"))
 server.use("/api/bus", busRouter);
+server.use("/api/reservation", reservationRouter);
 
 server.get("/", (req, res) => res.send("Express Bus Book"))
 

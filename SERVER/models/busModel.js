@@ -1,12 +1,5 @@
 const mongoose = require("mongoose");
 
-const seatShema = new mongoose.Schema({
-	zauzeto: {
-		type: Boolean,
-		default: false
-	}
-}, { _id : false })
-
 const busSchema = new mongoose.Schema({
 	polaziste: {
 		type: String,
@@ -25,11 +18,15 @@ const busSchema = new mongoose.Schema({
 		required: [true, "Cena karte je obavezna"]
 	},
 	sedista: {
-		type: [[seatShema]],
+		type: [[Boolean]],
 		required: [true, "Sedišta su obavezna"]
 	}
 })
 
-// post "remove" remove reservations
+busSchema.pre("remove",{ document: true, query: true }, async function(next) {
+	const Reservation = require("./reservationModel");
+	await Reservation.deleteMany({busId: this._id});
+	next();
+})
 
 module.exports = mongoose.model("Bus", busSchema);

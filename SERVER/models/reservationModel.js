@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Bus = require("./busModel")
 
 const seatShema = new mongoose.Schema({
     red: {
@@ -37,10 +36,12 @@ const reservationSchema = new mongoose.Schema({
     }
 }, {timestamps: true})
 
-reservationSchema.post("remove", async function(reservation, next) {
-    const bus = await Bus.findById(reservation.busId);
-    for(let seat in reservation.sedista)
-        bus.sedista[seat.red][seat.kolona].zauzeto = false;
+reservationSchema.pre("remove",{ document: true, query: true }, async function(next) {
+    const Bus = require('../models/busModel');
+    const setObject = {};
+    for(let karta of this.sedista)
+        setObject[`sedista.${karta.red}.${karta.kolona}`] = false;
+    await Bus.updateOne({_id: this.busId}, {$set: setObject});
     next();
 })
 

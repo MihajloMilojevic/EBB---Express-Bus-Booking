@@ -1,6 +1,3 @@
-const sgMail = require('@sendgrid/mail')
-const validator = require("validator");
-
 const Errors = require("../errors");
 const StatusCodes = require("http-status-codes");
 const Bus = require('../models/busModel');
@@ -26,7 +23,7 @@ const createBus = async (req, res) => {
 		{
 			let red = [];
 			for(let j = 0; j < brojKolona; j++)
-				red.push({zauzeto: false});
+				red.push(false);
 			sedista.push(red);
 		}
 		body.sedista = sedista;
@@ -34,6 +31,15 @@ const createBus = async (req, res) => {
 
 	const bus = await Bus.create(body);
 	res.status(StatusCodes.CREATED).json({ok: true, bus});
+}
+
+const deleteBus = async (req, res) => {
+	const busId = req.params.id;
+	const bus = await Bus.findById(busId);
+	if(!bus)
+		throw new Errors.NotFoundError("Ne postoji bus sa id-jem " + busId);
+	await bus.remove();
+	res.status(StatusCodes.OK).json({ok: true})
 }
 
 const getAllBuses = async (req, res) => {
@@ -80,46 +86,7 @@ const getSingleBus = async (req, res) => {
 	const busId = req.params.id;
 	const bus = await Bus.findById(busId);
 	if(!bus)
-		throw new Errors.NotFoundError("Ne postoji bus sa tim id-jem");
-	res.status(StatusCodes.OK).json({ok: true, bus});
-}
-
-const bookTickets = async (req, res) => {
-	const busId = req.params.id;
-	const bus = await Bus.findById(busId);
-	if(!bus)
-		throw new Errors.NotFoundError("Ne postoji bus sa tim id-jem");
-	const {karte, ime, prezime, email} = req.body;
-	if(!karte || !Array.isArray(karte) || karte.length === 0)
-		throw new Errors.BadRequestError("Karte su obavezne");
-	if(!ime)
-		throw new Errors.BadRequestError("Ime je obavezno");
-	if(!prezime)
-		throw new Errors.BadRequestError("Prezime je obavezno");
-	if(!email)
-		throw new Errors.BadRequestError("Email je obavezno");
-	if(!validator.isEmail(email))
-		throw new Errors.BadRequestError("Neispravan email");
-	// if(!karte.every(karta => !bus.sedista[karta.red][karta.kolona]))
-	// 	throw new Errors.BadRequestError("Sedište je već zauzeto");
-	for(let karta of karte)
-	{
-		bus.sedista[karta.red][karta.kolona] = {
-			zauzeto: true,
-			email,
-			ime,
-			prezime
-		}
-	}
-	sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-	const msg = {
-		to: email, // Change to your recipient
-		from: "milojevicm374@gmail.com", // Change to your verified sender
-		subject: "Express Bus Booking - Uspešna rezervacija",
-		text: "Uspešno ste rezervisali karte"
-	}
-	await sgMail.send(msg);
-	bus.save();
+		throw new Errors.NotFoundError("Ne postoji bus sa id-jem " + busId);
 	res.status(StatusCodes.OK).json({ok: true, bus});
 }
 
@@ -127,5 +94,5 @@ module.exports = {
 	createBus,
 	getAllBuses,
 	getSingleBus,
-	bookTickets
+	deleteBus
 }
