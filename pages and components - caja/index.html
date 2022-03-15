@@ -12,110 +12,92 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>      
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/addons-pro/cards-extended.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+    
     <link rel="stylesheet" href="style.css">
     <title>Početna</title>
 </head>
 <body>
-    <div class="icon" id="menu"><i class="fa fa-bars" id="toggler"></i></div> 
-    <header id="main">
-    <nav id="navbar">
-        <ul id="links">
-            <li><a href="index.html">početna</a></li>
-            <li><a href="autori.html">o autorima</a></li>
-            <li><a href="uputstva.html">uputstvo</a></li>
-        </ul>
-    </nav>
-    <div class=" masthead container-fluid">
-        <div class="row h-100 align-items-center">
-          <div class="col-12 text-center">
-            <h1 class="font-weight-light naslov "><b>Dobrodošli na EBB - Express Bus Booking<b></h1>
-            <p class="lead">Rezerviši svoju kartu brzo i lako!</p>
-          </div>
+  <nav class="nav">
+    <div class="container">
+        <div class="logo">
+            <a href="proba1.html">ebb</a>
         </div>
-      </div>
-    </header>
-       <!--<div class="booking-form ">
+        <div id="mainListDiv" class="main_list">
+            <ul class="navlinks" id="linkovi">
+                <li><a href="proba1.html">Pocetna</a></li>
+                <li><a href="autori.html">O autorima</a></li>
+                <li><a href="uputstvo.html">Uputstvo</a></li>
+            </ul>
+        </div>
+        <span class="navTrigger">
+            <i></i>
+            <i></i>
+            <i></i>
+        </span>
+    </div>
+  </nav>
+
+<section class="home">
+    <div class="d-flex flex-column justify-content-center w-100 h-100">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="fw-light text-light m-0">Dobrodošli na EBB - Express Bus Booking</h1><br>
+            <a href="#" class="text-decoration-none"><h5 class="fw-light text-light m-0">— Rezerviši svoju kartu brzo i lako! —</h5></a><br><br>
+            <button class="dugme" type="button"><span class="text">REZERVIŠI!</span></button>
+        </div>
+    </div>
+</section>
+<div class="container-fluid">
+    <div class="row flex justify-content-center align-items-center prvi_deo" style="display: none;" id="forma1">
+        <div class="booking-form">
             <form>
-                <div class="row ">
-                    <div class="col-12 ">
-                        <div class="form-group">
-                            <div class="form-checkbox">
-                                <label for="roundtrip">
-                                    <input type="radio" id="roundtrip" name="flight-type">
-                                    <span></span>Roundtrip
-                                </label>
-                                <label for="one-way">
-                                    <input type="radio" id="one-way" name="flight-type">
-                                    <span></span>One way
-                                </label>
-                                <label for="multi-city">
-                                    <input type="radio" id="multi-city" name="flight-type">
-                                    <span></span>Multi-City
-                                </label>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <span class="form-label">Flying from</span>
-                            <input class="form-control" type="text" placeholder="City or airport">
+                            <span class="form-label">Polazište</span>
+                            <input class="form-control" type="text" placeholder="Grad">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <span class="form-label">Flyning to</span>
-                            <input class="form-control" type="text" placeholder="City or airport">
+                            <span class="form-label">Odredište</span>
+                            <input class="form-control" type="text" placeholder="Grad">
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <span class="form-label">Departing</span>
+                            <span class="form-label">Datum</span>
                             <input class="form-control" type="date" required="">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <span class="form-label">Returning</span>
-                            <input class="form-control" type="date" required="">
+                            <span class="form-label">Vreme polaska</span>
+                            <input class="form-control" type="time" required="">
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <span class="form-label">Adults (18+)</span>
-                            <select class="form-control"><option>1</option><option>2</option><option>3</option></select>
-                            <span class="select-arrow"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <span class="form-label">Children (0-17)</span>
-                            <select class="form-control"><option>0</option><option>1</option><option>2</option></select>
-                            <span class="select-arrow"></span>
-                        </div>
-                    </div>
+                    </div>            
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <span class="form-label">Travel class</span><option>Economy class</option><option>Business class</option><option>First class</option></select>
-                            <span class="select-arrow"></span>
+                            <span class="form-label">Cena</span>
+                            <input class="form-control" type="text" required="" placeholder="0000.00 din.">
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-btn"><button class="submit-btn">Show flights</button></div>
+                    <div class="col-md-6">
+                        <div class="form-btn">
+                        <button class="submit-btn dugme2">Filtriraj</button>
+                        </div>
                     </div>
                 </div>
             </form>
-            </div>--> 
-
+        </div>
+    </div>
+</div>
     <script src="nav.js"></script>
 </body>
 </html>
+

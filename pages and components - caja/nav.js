@@ -1,12 +1,38 @@
-const icon = document.getElementById('toggler');
-const nav = document.getElementById('navbar');
-// functions
-nav.style.display = 'none';
-const showNav = (e) => {
-    e.target.parentElement.classList.toggle('change-backGround');
-    e.target.classList.toggle('clicked');
-    //setTimeout ==> because when i display:none for elements not animated so i delay it to be smooth
-    e.target.classList.contains('clicked') ? (nav.style.cssText = 'dispaly: flex;', setTimeout(() => nav.style.transform = 'translateY(0)', 300)) : (nav.style.transform = 'translateY(-100%)', setTimeout(() => nav.style.display = 'none', 700));
-}
-//events 
-icon.addEventListener('click', showNav);
+/*funkcija za phone rezoluciju bara*/
+$('.navTrigger').click(function () {
+    $(this).toggleClass('active');
+    console.log("Clicked menu");
+    $("#mainListDiv").toggleClass("show_list");
+    $("#mainListDiv").fadeIn();
+
+});
+
+/*funkicja za stikovanje bara*/
+$(window).scroll(function() {
+    if ($(document).scrollTop() > 50) {
+        $('.nav').addClass('affix');
+        console.log("OK");
+    } else {
+        $('.nav').removeClass('affix');
+    }
+});
+
+/*funkcija za prikazivanje forme klikom na dugme*/
+$(".dugme").click(function(){
+    $("#forma1").slideDown();
+});
+
+/*uputstva-kartice*/
+var swiper = new Swiper('.blog-slider', {
+    spaceBetween: 30,
+    effect: 'fade',
+    loop: true,
+    mousewheel: {
+      invert: false,
+    },
+    // autoHeight: true,
+    pagination: {
+      el: '.blog-slider__pagination',
+      clickable: true,
+    }
+});
