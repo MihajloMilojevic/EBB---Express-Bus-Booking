@@ -23,7 +23,7 @@ const createBus = async (req, res) => {
 		{
 			let red = [];
 			for(let j = 0; j < brojKolona; j++)
-				red.push({zauzeto: false});
+				red.push(false);
 			sedista.push(red);
 		}
 		body.sedista = sedista;
@@ -33,23 +33,66 @@ const createBus = async (req, res) => {
 	res.status(StatusCodes.CREATED).json({ok: true, bus});
 }
 
+const deleteBus = async (req, res) => {
+	const busId = req.params.id;
+	const bus = await Bus.findById(busId);
+	if(!bus)
+		throw new Errors.NotFoundError("Ne postoji bus sa id-jem " + busId);
+	await bus.remove();
+	res.status(StatusCodes.OK).json({ok: true})
+}
+
 const getAllBuses = async (req, res) => {
-	const query = Bus.find();
+	let query = Bus.find();
 	// pretraga po datumu, vremenu, destinaciji, ceni
+	if(req.query.polaziste)
+		query = query.where("polaziste", { $regex: new RegExp(req.query.polaziste.toLowerCase(), "i") })
+	if(req.query.destinacija)
+		query = query.where("destinacija", { $regex: new RegExp(req.query.destinacija.toLowerCase(), "i") })
+	if(req.query.datumod)
+	{
+		const d = new Date();
+		const params = req.query.datumod.split("-");
+		d.setDate(params[0]);
+		d.setMonth(params[1] - 1);
+		d.setFullYear(params[2]);
+		d.setHours(0);
+		d.setMinutes(0);
+		d.setSeconds(0);
+		query = query.where("polazak").gte(d);
+	}
+	if(req.query.datumdo)
+	{
+		const d = new Date();
+		const params = req.query.datumdo.split("-");
+		d.setDate(params[0]);
+		d.setMonth(params[1] - 1);
+		d.setFullYear(params[2]);
+		d.setHours(0);
+		d.setMinutes(0);
+		d.setSeconds(0);
+		query = query.where("polazak").lte(d);
+	}
+	if(req.query.cenaod)
+		query = query.where("cena").gte(req.query.cenaod);
+	if(req.query.cenado)
+		query = query.where("cena").lte(req.query.cenado);
+	
 	const buses = await query;
-	res.status(StatusCodes.OK).json({ok: true, buses});
+	res.status(StatusCodes.OK).json({ok: true, count: buses.length, buses});
 }
 
 const getSingleBus = async (req, res) => {
 	const busId = req.params.id;
 	const bus = await Bus.findById(busId);
 	if(!bus)
-		throw new Errors.NotFoundError("Ne postoji bus sa tim id-jem");
+		throw new Errors.NotFoundError("Ne postoji bus sa id-jem " + busId);
 	res.status(StatusCodes.OK).json({ok: true, bus});
 }
 
 module.exports = {
 	createBus,
 	getAllBuses,
-	getSingleBus
+	getSingleBus,
+	deleteBus
 }

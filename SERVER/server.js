@@ -4,6 +4,7 @@ const connetDB = require("./database/connect")
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 const busRouter = require("./routers/busRouter");
+const reservationRouter = require("./routers/reservationRouter");
 const express = require('express');
 const server = express();
 
@@ -12,7 +13,7 @@ const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 server.set('trust proxy', 1);
 server.use(
@@ -28,6 +29,7 @@ server.use(xss());
 
 // server.use(express.static("public"))
 server.use("/api/bus", busRouter);
+server.use("/api/reservation", reservationRouter);
 
 server.get("/", (req, res) => res.send("Express Bus Book"))
 
