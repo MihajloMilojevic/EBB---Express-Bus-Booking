@@ -1,5 +1,8 @@
+/* eslint-disable no-useless-escape */
 import {useState} from "react";
 import Seat from "../components/seat";
+import Nav from "../components/nav";
+import "./home.css"
 
 export default function Home(params) {
 	const [formFilter, setFormFilter] = useState({
@@ -15,6 +18,7 @@ export default function Home(params) {
 		prezime: "",
 		email: ""
 	})
+	const [affix, setAffix] = useState(false)
 	const [buses, setBuses] = useState([]);
 	const [selectedBusIndex, setSelectedBusIndex] = useState(null);
 	const [book, setBook] = useState([]);
@@ -163,10 +167,28 @@ export default function Home(params) {
 		})
 	}
 
+	const handlePageScroll = e => {
+		const scrollTop = e.target.scrollTop;
+		if(affix && scrollTop <= 50)
+			return setAffix(false);
+		if(!affix && scrollTop > 50)
+			return setAffix(true);
+	}
+
 	return (
-	<>
-		<h1>EBB - Express Bus Booking</h1>
-		<form onSubmit={handleSubmit}>
+	<div onScroll={handlePageScroll} className="page">
+		<Nav affix={affix}/>
+		<section className="home">
+			<div className="d-flex flex-column justify-content-center w-100 h-100">
+				<div className="d-flex flex-column justify-content-center align-items-center">
+					<h1 className="fw-light text-light m-0">Dobrodošli na EBB - Express Bus Booking</h1><br/>
+					<a href="#forma" className="text-decoration-none"><h5 className="fw-light text-light m-0">— Rezerviši svoju kartu brzo i lako! —</h5></a><br/><br/>
+					<a href="#forma" className="dugme"><span className="text">REZERVIŠI!</span></a>
+				</div>
+			</div>
+		</section>
+
+		<form onSubmit={handleSubmit} id="forma">
 			<label>Polazište: </label>
 			<input type="text" name="polaziste" value={formFilter.polaziste} onChange={handleTextChange} />
 			<br/>
@@ -187,7 +209,6 @@ export default function Home(params) {
 			<br/>
 			<button type="submit">Pretrazi</button>
 		</form>
-
 		{
 			buses.map((bus, index) => {
 				const d = new Date(bus.polazak);
@@ -265,5 +286,12 @@ export default function Home(params) {
 				</form>
 			</>
 		}
-	</>)
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	</div>)
 }
