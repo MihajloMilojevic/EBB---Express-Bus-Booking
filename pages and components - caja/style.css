@@ -95,7 +95,7 @@ h5{
 /*dugme*/
 .dugme {
   align-items: center;
-  background-image: linear-gradient(144deg,#EE6A61, #B91061 50%,#EE6A61);
+  background-image:  linear-gradient(90deg, hsla(338, 86%, 48%, 1) 0%, hsla(279, 64%, 32%, 1) 100%);
   border: 0;
   border-radius: 8px;
   box-sizing: border-box;
@@ -120,7 +120,7 @@ h5{
 }
 
 .dugme span {
-  /*background-color: white;*/
+  background-color: rgba(96, 29, 132, 40%);
   padding: 16px 24px;
   border-radius: 6px;
   width: 100%;
