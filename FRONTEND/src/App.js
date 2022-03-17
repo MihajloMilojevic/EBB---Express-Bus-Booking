@@ -4,6 +4,7 @@ import Authors from "./pages/authors";
 import Instructions from "./pages/instructions";
 import NotFound from "./pages/404";
 import CancelReservation from "./pages/cancelReservation";
+import CreateBus from "./pages/createBus";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/instructions" exect element={<Instructions />} />
           <Route path="/authors" element={<Authors />} />
+          <Route path="/bus" element={<CreateBus />} />
           <Route path="/cancel/:id" element={<CancelReservation />} />
           <Route path="*" element={<NotFound />} />
       </Routes>
