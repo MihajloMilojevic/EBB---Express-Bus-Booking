@@ -4,7 +4,6 @@ $('.navTrigger').click(function () {
     console.log("Clicked menu");
     $("#mainListDiv").toggleClass("show_list");
     $("#mainListDiv").fadeIn();
-
 });
 
 /*funkicja za stikovanje bara*/
@@ -16,6 +15,16 @@ $(window).scroll(function() {
         $('.nav').removeClass('affix');
     }
 });
+/*
+$(window).scroll(function() {
+    if ($(document).scrollBottom() > 50) {
+        $('.footer-pocetna').addClass('affix');
+        console.log("OK");
+    } else {
+        $('.footer-pocetna').removeClass('affix');
+    }
+});
+*/
 
 /*funkcija za prikazivanje forme klikom na dugme*/
 $(".dugme").click(function(){
@@ -32,7 +41,7 @@ var swiper = new Swiper('.blog-slider', {
     },
     // autoHeight: true,
     pagination: {
-      el: '.blog-slider__pagination',
+      el: '.blog-slider_pagination',
       clickable: true,
     }
 });

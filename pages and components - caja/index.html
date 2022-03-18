@@ -14,21 +14,20 @@
     <link href="css/addons-pro/cards-extended.min.css" rel="stylesheet">
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
-    
     <link rel="stylesheet" href="style.css">
-    <title>Početna</title>
+    <title>Express-Bus-Booking</title>
 </head>
 <body>
   <nav class="nav">
     <div class="container">
         <div class="logo">
-            <a href="proba1.html">ebb</a>
+            <a href="index.html">ebb</a>
         </div>
         <div id="mainListDiv" class="main_list">
             <ul class="navlinks" id="linkovi">
-                <li><a href="./index.html">Pocetna</a></li>
-                <li><a href="./autori.html">O autorima</a></li>
-                <li><a href="./uputstva.html">Uputstvo</a></li>
+                <li><a href="index.html">Pocetna</a></li>
+                <li><a href="autori.html">O autorima</a></li>
+                <li><a href="uputstva.html">Uputstvo</a></li>
             </ul>
         </div>
         <span class="navTrigger">
@@ -41,10 +40,19 @@
 
 <section class="home">
     <div class="d-flex flex-column justify-content-center w-100 h-100">
-        <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="d-flex flex-column justify-content-center align-items-center ">
             <h1 class="fw-light text-light m-0">Dobrodošli na EBB - Express Bus Booking</h1><br>
             <a href="#" class="text-decoration-none"><h5 class="fw-light text-light m-0">— Rezerviši svoju kartu brzo i lako! —</h5></a><br><br>
             <button class="dugme" type="button"><span class="text">REZERVIŠI!</span></button>
+        </div>
+        <div class="footer-pocetna">
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <p class="copyright">——<a href="index.html"> Express-Bus-Booking </a>© 2022 ——</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 </section>
@@ -61,7 +69,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <span class="form-label">Destinacija</span>
+                            <span class="form-label">Odredište</span>
                             <input class="form-control" type="text" placeholder="Grad">
                         </div>
                     </div>
@@ -69,33 +77,25 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <span class="form-label">Minimalna cena</span>
-                            <input class="form-control" type="text" required="" placeholder="0000.00 din.">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <span class="form-label">Maksimalna cena</span>
-                            <input class="form-control" type="text" required="" placeholder="0000.00 din.">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <span class="form-label">Datum od</span>
+                            <span class="form-label">Datum</span>
                             <input class="form-control" type="date" required="">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <span class="form-label">Datum do</span>
-                            <input class="form-control" type="date" required="">
+                            <span class="form-label">Vreme polaska</span>
+                            <input class="form-control" type="time" required="">
                         </div>
-                    </div>           
+                    </div>            
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span class="form-label">Cena</span>
+                            <input class="form-control" type="text" required="" placeholder="0000.00 din.">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-btn">
                         <button class="submit-btn dugme2">Filtriraj</button>
                         </div>
@@ -103,6 +103,33 @@
                 </div>
             </form>
         </div>
+        <!--<table>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Savings</th>
+            </tr>
+            <tr>
+              <td>Peter</td>
+              <td>Griffin</td>
+              <td>$100</td>
+            </tr>
+            <tr>
+              <td>Lois</td>
+              <td>Griffin</td>
+              <td>$150</td>
+            </tr>
+            <tr>
+              <td>Joe</td>
+              <td>Swanson</td>
+              <td>$300</td>
+            </tr>
+            <tr>
+              <td>Cleveland</td>
+              <td>Brown</td>
+              <td>$250</td>
+          </tr>
+          </table>-->
     </div>
 </div>
     <script src="nav.js"></script>
