@@ -27,6 +27,7 @@
 	<!-- CUSTOM JAVASCRIPT -->
 	<script src="./js/nav.js" defer></script>
 	<script src="./js/footer.js" defer></script>
+	<script src="./js/home.js" defer></script>
 	<!-- CUSTOM JAVASCRIPT -->
 
 	<title>EBB</title>
@@ -65,6 +66,39 @@
 		</div>
 	</section>
 	<!-- HERO SECTION -->
+
+	<!-- FILTER FORM -->
+	<form id="forma">
+		<label>Polazište: </label>
+		<input type="text" name="polaziste" id="polaziste">
+		<br/>
+		<label>Destinacija: </label>
+		<input type="text" name="destinacija">
+		<br/>
+		<label>Minimalna cena: </label>
+		<input type="number" name="cenaod">
+		<br/>
+		<label>Maximalna cena: </label>
+		<input type="number" name="cenado">
+		<br/>
+		<label>Od datuma: </label>
+		<input type="date" name="datumod">
+		<br/>
+		<label>Do datuma: </label>
+		<input type="date" name="datumdo">
+		<br/>
+		<button type="submit">Pretrazi</button>
+	</form>
+	<!-- FILTER FORM -->
+
+	<!-- BUS SELECTION -->
+	<div id="allBuses"></div>
+	<!-- BUS SELECTION -->
+	
+	<!-- SELECTED BUS -->
+	<div id="selectedBus"></div>
+	<!-- SELECTED BUS -->
+
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<!-- FOOTER -->
 	<footer>

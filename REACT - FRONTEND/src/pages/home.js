@@ -74,7 +74,7 @@ export default function Home(params) {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log(JSON.stringify(formFilter))
+		// console.log(JSON.stringify(formFilter))
 		let query = [];
 		for(let name in formFilter)
 		{
