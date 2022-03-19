@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+
+* {
+    scroll-behavior: smooth;
+}
+html,
+body {
+    /* background-color: aqua; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Phantomsans, sans-serif;
+    font-size: 62.5%;
+    font-size: 10px;
+    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100vw;
+}
+button,
+[type=button],
+[type=submit] {
+    outline: none !important;
+}

@@ -1,0 +1,30 @@
+footer {
+	background-color:transparent;
+	color:whitesmoke;
+	bottom: 0;
+	margin-top:14px;
+	margin-bottom:0;
+	font-size:15px;
+	opacity:0.6;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+}
+footer a{
+	color: whitesmoke !important;
+}
+footer .row {
+	justify-content: center;
+	align-items: center;
+}
+.copyright {
+	width: 100%;
+	text-align: center;
+}
+.footer-affix {
+	background-color: red;
+	position: absolute;
+	bottom: auto;
+}

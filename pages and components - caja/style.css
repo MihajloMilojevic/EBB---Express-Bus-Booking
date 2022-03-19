@@ -475,7 +475,7 @@ th {
   }
 
 /*footer*/
-  .footer-pocetna {
+  footer {
     background-color:transparent;
     color:whitesmoke;
     bottom: 0px;
@@ -483,20 +483,25 @@ th {
     margin-bottom:0;
     font-size:15px;
     opacity:0.6;
-    position: absolute;
+    width: 100%;
+    /* position: absolute; */
+    display: flex;
     align-items: center;
     justify-content: center;
-    display: flex;
     position: fixed;
   }
-  .footer-pocetna a, .footer-autori a{
+  footer a{
     color: whitesmoke;
   }
-  
-   .copyright {
-    padding-left: 850px;
-    
+  footer .row {
+    justify-content: center;
+    align-items: center;
   }
+    .copyright {
+    /* padding-left: 850px; */
+    width: 100%;
+    text-align: center;
+  } 
 
 /*uputstvo*/
 .uputstvo{
