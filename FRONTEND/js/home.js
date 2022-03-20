@@ -56,8 +56,6 @@ function setBuses(value) {
 }
 function setBook(value) {
 	book = value;
-	if(selectedBusIndex === null) return;
-	selectedBus.appendChild(createBusTable(buses[selectedBusIndex]));
 }
 function setSelectedBusIndex(value) {
 	selectedBusIndex = value;
@@ -282,7 +280,7 @@ function seatClick(row, col) {
 			case BOOK:
 				setBook(book.filter(el => !(el.row === row && el.col === col)))
 				seat.setAttribute("data-status", FREE);
-				seat.style.backgroundColor = "red";
+				seat.style.backgroundColor = "gray";
 				return;
 		}
 	}
