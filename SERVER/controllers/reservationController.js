@@ -47,12 +47,20 @@ const makeReservation = async (req, res) => {
 		<h1>Express Bus Booking</h1>
 		<h5>Uspešna rezervacija</h5>
 		<p>Id vaše rezervacije: ${reservation._id}</p>
-		<a href="${FRONTEND_URL}/cancel/${reservation._id}" target="_blank">OTKAŽI REZERVACIJU</a>
+		<a href="${FRONTEND_URL}/reservation.html?id=${reservation._id}" target="_blank">Pregledaj rezervaciju</a>
 		`,
 		text: "Uspešno ste rezervisali karte"
 	}
 	await sgMail.send(msg);
 	res.status(StatusCodes.OK).json({ok: true, reservation});
+}
+
+const getSingleReservation = async (req, res) => {
+	const reservationId = req.params.id;
+	const reservation = await Reservation.findById(reservationId).populate("busId");
+	if(!reservation)
+		throw new Errors.NotFoundError("Ne postoji rezervacija sa id-jem " + reservationId);
+	res.status(StatusCodes.OK).json({ok: true, reservation})
 }
 
 const cancelReservation = async (req, res) => {
@@ -66,5 +74,6 @@ const cancelReservation = async (req, res) => {
 
 module.exports = {
 	makeReservation,
+	getSingleReservation,
 	cancelReservation
 }
