@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", () => {
+	queryBuses("", () => {
+		document.querySelector("html").classList.remove("loading")
+		document.querySelector(".loading-screen ").classList.add("loaded")
+	})
+})
 let formFilter = {
 	polaziste: "",
 	destinacija: "",
@@ -18,12 +24,21 @@ let book = [];
 /* PROMENA FORME */
 document.querySelector("#forma").addEventListener("submit", handleFilterSubmit)
 document.querySelector("[name=polaziste]").addEventListener("change", handleTextChange);
+document.querySelector("[name=destinacija]").addEventListener("change", handleTextChange);
+document.querySelector("[name=cenaod]").addEventListener("change", handleTextChange);
+document.querySelector("[name=cenado]").addEventListener("change", handleTextChange);
+document.querySelector("[name=datumod]").addEventListener("change", handleDateChange);
+document.querySelector("[name=datumdo]").addEventListener("change", handleDateChange);
 
+document.querySelector("#book").addEventListener("submit", handleBookFormSubmit);
+document.querySelector("[name=ime]").addEventListener("change", handleBookInputChange);
+document.querySelector("[name=prezime]").addEventListener("change", handleBookInputChange);
+document.querySelector("[name=email]").addEventListener("change", handleBookInputChange);
 /* PROMENA FORME */
 
 const busList = document.getElementById("allBuses");
 const selectedBus = document.getElementById("selectedBus");
-
+const bookForm = document.getElementById("book-form");
 
 function setFormFilter(value) {
 	formFilter = value
@@ -41,14 +56,17 @@ function setBuses(value) {
 }
 function setBook(value) {
 	book = value;
-	selectedBus.innerHTML = "";
 	if(selectedBusIndex === null) return;
 	selectedBus.appendChild(createBusTable(buses[selectedBusIndex]));
 }
 function setSelectedBusIndex(value) {
 	selectedBusIndex = value;
 	selectedBus.innerHTML = "";
-	if(selectedBusIndex === null) return;
+	if(selectedBusIndex === null) {
+		bookForm.style.display = "none";
+		return;
+	}
+	bookForm.style.display = "block";
 	selectedBus.appendChild(createBusTable(buses[selectedBusIndex]));
 }
 function handleBookFormSubmit(e) {
@@ -86,8 +104,9 @@ function handleBookFormSubmit(e) {
 }
 async function BookTickets(a) {
 	try {
+		console.log(buses[selectedBusIndex]);
 		const body = {
-			busId: selectedBus._id,
+			busId: buses[selectedBusIndex]["_id"],
 			ime: formBook.ime,
 			prezime: formBook.prezime, 
 			email: formBook.email,
@@ -136,7 +155,7 @@ function handleFilterSubmit(e) {
 	const queryString = query.join("&");
 	queryBuses(queryString);
 }
-async function queryBuses(query) {
+async function queryBuses(query, callback) {
 	try {
 		const response = await fetch(`https://ebb-express-bus-booking.herokuapp.com/api/bus?${query}`);
 		const data = await response.json();
@@ -152,6 +171,8 @@ async function queryBuses(query) {
 			return;
 		}
 		setBuses(data.buses);
+		if(callback)
+			callback();
 	} catch (error) {
 		console.error(error);
 		alert("Došlo je do greške, probajte ponovo kasnije")
@@ -180,6 +201,12 @@ function handleDateChange(e) {
 		})
 	}
 }
+function handleBookInputChange(e) {
+	setFormBook({
+		...formBook,
+		[e.target.name]: e.target.value
+	})
+}
 function createBusListItem(bus, index) {
 	function dveCifre(broj) {
 		if(broj < 10)
@@ -188,12 +215,15 @@ function createBusListItem(bus, index) {
 	}
 	const d = new Date(bus.polazak);
 	const div = document.createElement("div");
+	div.classList.add("bus-list-item")
 	div.style.border = "1px solid black";
 	div.style.margin = "20px";
 	div.style.padding = "20px";
 	div.onclick = () => {
+		console.log("klik");
 		setBook([]);
 		setSelectedBusIndex(index)
+		document.getElementById("book-form").scrollIntoView();
 	};
 	div.innerHTML = `
 		<p>${bus.polaziste} - ${bus.destinacija}</p>

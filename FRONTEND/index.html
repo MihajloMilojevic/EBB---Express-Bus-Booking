@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sr-RS">
+<html lang="sr-RS" class="loading">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,15 +24,15 @@
 	<link rel="stylesheet" href="./css/footer.css">
 	<!-- CUSTOM CSS -->
 
-	<!-- CUSTOM JAVASCRIPT -->
-	<script src="./js/nav.js" defer></script>
-	<script src="./js/footer.js" defer></script>
-	<script src="./js/home.js" defer></script>
-	<!-- CUSTOM JAVASCRIPT -->
-
 	<title>EBB</title>
 </head>
-<body>
+<body class="loading">
+	<!-- LOADING SCREEN -->
+	<div class="loading-screen">
+		<img src="./images/InfinityLoader.svg" alt="Loading">
+	</div>
+	<!-- LOADING SCREEN -->
+
 	<!-- NAVIGATION BAR -->
 	<nav class="nav">
 		<div class="container">
@@ -58,48 +58,78 @@
 	<!-- HERO SECTION -->
 	<section class="home">
 		<div class="d-flex flex-column justify-content-center w-100 h-100">
-			<div class="d-flex flex-column justify-content-center align-items-center">
-				<h1 class="fw-light text-light m-0">Dobrodošli na EBB - Express Bus Booking</h1><br/>
-				<a href="#forma" class="text-decoration-none"><h5 class="fw-light text-light m-0">— Rezerviši svoju kartu brzo i lako! —</h5></a><br/><br/>
-				<a href="#forma" class="dugme"><span class="text">REZERVIŠI!</span></a>
+			<div class="d-flex flex-column justify-content-center align-items-center p-5 ">
+				<h1 class="fw-light text-light m-0 text-center">Dobrodošli na EBB - Express Bus Booking</h1><br/>
+				<a href="#filter-form" class="text-decoration-none text-center"><h5 class="fw-light text-light m-0">— Rezerviši svoju kartu brzo i lako! —</h5></a><br/><br/>
+				<a href="#filter-form" class="dugme"><span class="text">REZERVIŠI!</span></a>
 			</div>
 		</div>
 	</section>
 	<!-- HERO SECTION -->
 
-	<!-- FILTER FORM -->
-	<form id="forma">
-		<label>Polazište: </label>
-		<input type="text" name="polaziste" id="polaziste">
-		<br/>
-		<label>Destinacija: </label>
-		<input type="text" name="destinacija">
-		<br/>
-		<label>Minimalna cena: </label>
-		<input type="number" name="cenaod">
-		<br/>
-		<label>Maximalna cena: </label>
-		<input type="number" name="cenado">
-		<br/>
-		<label>Od datuma: </label>
-		<input type="date" name="datumod">
-		<br/>
-		<label>Do datuma: </label>
-		<input type="date" name="datumdo">
-		<br/>
-		<button type="submit">Pretrazi</button>
-	</form>
-	<!-- FILTER FORM -->
-
-	<!-- BUS SELECTION -->
-	<div id="allBuses"></div>
-	<!-- BUS SELECTION -->
+	<div class="container-fluid filter-form" id="filter-form">
+		<div class="row">
+			<div class="col-md-5">
+				<!-- FILTER FORM -->
+				<form id="forma">
+					<label>Polazište: </label>
+					<input type="text" name="polaziste" id="polaziste">
+					<br/>
+					<label>Destinacija: </label>
+					<input type="text" name="destinacija">
+					<br/>
+					<label>Minimalna cena: </label>
+					<input type="number" name="cenaod">
+					<br/>
+					<label>Maximalna cena: </label>
+					<input type="number" name="cenado">
+					<br/>
+					<label>Od datuma: </label>
+					<input type="date" name="datumod">
+					<br/>
+					<label>Do datuma: </label>
+					<input type="date" name="datumdo">
+					<br/>
+					<button type="submit">Pretrazi</button>
+				</form>
+				<!-- FILTER FORM -->
+			</div>
+			<div class="col-md-7">
+				<!-- BUS SELECTION -->
+				<div id="allBuses"></div>
+				<!-- BUS SELECTION -->
+			</div>
+		</div>
+	</div>
 	
-	<!-- SELECTED BUS -->
-	<div id="selectedBus"></div>
-	<!-- SELECTED BUS -->
+	<div class="container-fluid book-form" id="book-form" style="display: none;">
+		<div class="row">
+			<div class="col-md-7">
+				<!-- SELECTED BUS -->
+				<div id="selectedBus"></div>
+				<!-- SELECTED BUS -->
+			</div>
+			<div class="col-md-5">
+				<!-- BOOK FORM -->
+				<form id="book">
+					<label>Ime: </label>
+					<input type="text" name="ime">
+					<br/>
+					<label>Prezime: </label>
+					<input type="text" name="prezime">
+					<br/>
+					<label>Email: </label>
+					<input type="text" name="email">
+					<br/>
+					<button type="submit">Rezervisi</button>
+				</form>
+				<!-- BOOK FORM -->
+			</div>
+		</div>
+	</div>
 
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	
+
 	<!-- FOOTER -->
 	<footer>
 		<div class="container-fluid">
@@ -109,5 +139,12 @@
 		</div>
 	</footer>
 	<!-- FOOTER -->
+
+	
+	<!-- CUSTOM JAVASCRIPT -->
+	<script src="./js/nav.js" defer></script>
+	<script src="./js/footer.js" defer></script>
+	<script src="./js/home.js" defer></script>
+	<!-- CUSTOM JAVASCRIPT -->
 </body>
 </html>
