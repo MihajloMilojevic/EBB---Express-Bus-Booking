@@ -52,7 +52,7 @@ function setBuses(value) {
 	buses.forEach((bus, index) => {
 		busList.appendChild(createBusListItem(bus, index))
 	});
-	setSelectedBusIndex(selectedBusIndex);
+	setSelectedBusIndex(null);
 }
 function setBook(value) {
 	book = value;
