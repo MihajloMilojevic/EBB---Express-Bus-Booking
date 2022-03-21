@@ -1,11 +1,11 @@
 table,
-      tbody,
-      tr {
-        width: 100%;
-      }
-      td {
-        text-align: center;
-      }
+tbody,
+tr {
+  width: 100%;
+}
+td {
+  text-align: center;
+}
 
 
 .home {
@@ -30,7 +30,7 @@ h5{
   align-items: center;
   background-image: linear-gradient(144deg,#EE6A61, #B91061 50%,#EE6A61);
   border: 0;
-  border-radius: 8px;
+  border-radius: 100rem;
   box-sizing: border-box;
   color: white !important;
   display: flex;
@@ -66,7 +66,7 @@ h5{
 }
 .filter-form {
   background-color:beige;
-  width: 100vw;
+  /* width: 100vw; */
   min-height: 100vh;
   padding-top: 80px;
   padding-bottom: 80px;
