@@ -22,10 +22,30 @@ export default class Instructions extends React.Component {
 	}
 
 	componentDidMount() {
-		this.swiper = new Swiper('.blog-slider', {
-			direction: "vertical",
-			slidesPerView: 1,
-			loopedSlides: 1,
+		// this.swiper = new Swiper('.blog-slider', {
+		// 	direction: "vertical",
+		// 	slidesPerView: 1,
+		// 	loopedSlides: 1,
+		// 	spaceBetween: 30,
+		// 	effect: 'fade',
+		// 	loop: true,
+		// 	mousewheel: {
+		// 	  invert: false,
+		// 	},
+		// 	// autoHeight: true,
+		// 	pagination: {
+		// 	  el: '.blog-slider_pagination',
+		// 	  clickable: true,
+		// 	},
+		// 	scrollbar: {
+		// 		el: '.page',
+		// 	},
+		// 	scrollingElement: ".page",
+		// 	modules: [Navigation, Pagination, Scrollbar]
+		// });
+		const script = document.createElement("script")
+		script.innerHTML = `
+		var swiper = new Swiper('.blog-slider', {
 			spaceBetween: 30,
 			effect: 'fade',
 			loop: true,
@@ -36,13 +56,9 @@ export default class Instructions extends React.Component {
 			pagination: {
 			  el: '.blog-slider_pagination',
 			  clickable: true,
-			},
-			// scrollbar: {
-			// 	el: '.page',
-			// },
-			// scrollingElement: ".page",
-			modules: [Navigation, Pagination, Scrollbar]
-		});
+			}
+		});`
+		document.body.appendChild(script)
 	}
 
 	handlePageScroll = e => {
