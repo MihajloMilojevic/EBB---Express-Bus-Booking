@@ -95,6 +95,7 @@ h5{
 /*dugme REZERVISI*/
 .dugme {
   align-items: center;
+  font-weight: 700;
   background-image: linear-gradient(144deg,#EE6A61, #B91061 50%,#EE6A61);
   border: 0;
   border-radius: 100rem;
@@ -180,7 +181,7 @@ button[type="button"]
         width: 100%;
         height: 100vh;
         margin: auto;
-        background-color: #EE6A61;
+        background-color: #e3115d;
         background-position: center top;
     }
     .nav div.main_list ul li {
@@ -398,38 +399,135 @@ button[type="button"]
 }
 
 /*forma*/
-
-.prvi_deo{
-    width: 50vw;
-    height: 50vh;
-    padding-left: 120px;
-    padding-right: 120px;
-    padding-top: 120px;
-    background-color: #faf9f9;
-    font-size: 20px;
-    color:#e3115d;
-}
-
-.booking-form{
+.forma{
     width: 100%;
     height: 100%;
-    float: left;
+    margin-left: 80px;
+    
 }
-/*dugme Filtriraj*/
-.dugme2{
-    margin-top: 31px;
-    align-items: center;
-    margin-left: 125px;
+
+.section {
+    position: relative;
+    height: 100vh;
+    padding: 0;
+}
+
+.section .section-center {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.booking-form {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    padding: 40px;
+    overflow: hidden;
     background-image: linear-gradient(144deg,#EE6A61, #B91061 50%,#EE6A61);
-    border: 0;
-    border-radius: 100rem;
-    box-sizing: border-box;
-    color: white;
-    font-family: Phantomsans, sans-serif;
+    background-size: cover;
+    border-radius: 20px;
+    z-index: 20;
+}
+
+.booking-form::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.booking-form .form-header {
+    text-align: center;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.booking-form .form-header h1 {
+    font-weight: 700;
+    text-transform: capitalize;
+    font-size: 42px;
+    margin: 0px;
+    color: #fff;
+}
+
+.booking-form .form-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.booking-form .form-control {
+    background-color: rgba(255, 255, 255, 0.2);
     font-size: 25px;
+    height: 60px;
+    padding: 0px 25px;
+    border: none;
+    border-radius: 40px;
+    color: #fafafa;
+    -webkit-box-shadow: 0px 0px 0px 2px transparent;
+    box-shadow: 0px 0px 0px 2px transparent;
+    -webkit-transition: 0.2s;
+    transition: 0.2s
+}
+
+.booking-form .form-control::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.5)
+}
+
+.booking-form .form-control:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.5)
+}
+
+.booking-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5)
+}
+
+.booking-form .form-control:focus {
+    -webkit-box-shadow: 0px 0px 0px 2px #e3115d;
+    box-shadow: 0px 0px 0px 2px #e3115d;
+}
+
+/*ne znam cemu sluzi ali kada se skloni klikom na input polje pozadina postaje bela*/
+.booking-form select.form-control+.select-arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 32px;
+    line-height: 32px;
+    height: 32px;
+    text-align: center;
+    pointer-events: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px
+}
+
+
+/*dugme Filtriraj*/
+.dugme2 {
+    color: #fff;
+    background-image: linear-gradient(144deg,#EE6A61, #B91061 50%,#EE6A61);
+    font-weight: 700;
+    height: 60px;
+    padding: 15px 35px;
+    width: 100%;
+    font-size: 25px;
+    border-radius: 100rem;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
     justify-content: center;
     line-height: 1em;
-    padding: 15px 35px;
     text-decoration: none;
     user-select: none;
     -webkit-user-select: none;
@@ -438,44 +536,243 @@ button[type="button"]
     cursor: pointer;
 }
 
-.form-control{
-    border-radius: 8px;
-    box-sizing: border-box;
-    color: black;
-    background: transparent;
-    display: flex;
-    font-family: Phantomsans, sans-serif;
-    font-size: 25px;
-    justify-content: center;
-    line-height: 1em;
-    
-}
-
-.form-label{
-    color: #e3115d;
-}
-
-/*tabela*/
-table {
-    border-collapse: collapse;
+/*autobusi*/
+.tabela{
     width: 100%;
-    position: right;
+    float: right;
+    margin-left: 50px;
+    background-image: linear-gradient(144deg,#EE6A61, #B91061 50%,#EE6A61);
+   /* background-color: #e3115d;*/
+    color: whitesmoke;
+}
+  .table{
+    width:100%;
+    height: 100%;
+    table-layout: fixed;
   }
-  
-  th, td {
+  .table td, .table th{
+      border-top: 0;
+  }
+
+  .tbl-header{
+    background:transparent;
+    font-size: 15px;
+   }
+
+  th{
+    padding: 20px 15px;
     text-align: left;
-    padding: 8px;
+    color: #fff;
+    text-transform: uppercase;
   }
-  
-  tr:nth-child(even){background-color: #f2f2f2}
-  
-th {
-    background-color: #e3115d;
+  td{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    color: #fff;
+
+  }
+  .table tbody tr.highlight td {
+    background-color: #ddd;
+  }
+
+
+/*SEDISTA*/
+.bus {
+    margin: auto;
+    width: 100%;
+    max-width: 370px;
+}
+
+.exit {
+    position: relative;
+    height: 50px;
+}
+
+/*VRATA AUTOBUSA*/
+ .exit:after {
+    content: "VRATA";
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px 2px;
+    display: block;
+    position: absolute;
+    background: #e3115d;
     color: white;
-  }
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.exit:after {
+    right: 0;
+}
+
+
+/*ivice autobusa*/
+.fuselage {
+    border-right: 10px solid #d8d8d8;
+    border-left: 10px solid #d8d8d8;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*sedista*/
+.seats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+/*sediste pojedinacno*/
+.seat {
+    display: flex;
+    padding: 10px;
+    position: relative;
+}
+
+/*razmak posle drugog sedista*/
+.seat:nth-child(2) {
+    margin-right: 50%;
+}
+.seat input[type=checkbox] {
+    position: absolute;
+    opacity: 0;
+}
+/*kada se cekiraju slobodna sedista*/
+.seat input[type=checkbox]:checked + label {
+    background: #bada55;
+    -webkit-animation-name: rubberBand;
+    animation-name: rubberBand;
+    animation-duration: 50ms;
+    animation-fill-mode: both;
+}
+
+/*zauzeta sedista*/
+.seat input[type=checkbox]:disabled + label {
+    background: #e3115d;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+/*ovo je za ona prva 2 sedista viska, ali mozes da  iskoristis i za zauzeta */
+.seat input[type=checkbox]:disabled + label:after {
+    content: "X";
+    text-indent: 0;
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+/*kursor na zauzetim sedistima*/
+.seat input[type=checkbox]:disabled + label:hover {
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/*sedista koja nisu ni zauzeta, ali nisu cekirana*/
+.seat label {
+    display: block;
+    position: relative;
+    width: 40px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 4rem;
+    padding: 4px 0;
+    background: whitesmoke;
+    border-radius: 5px;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+}
+/*maska preko sedista*/
+.seat label:before {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    top: 2px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+}
+
+/*maska preko sedista*/
+.seat label:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0px 2px grey;
+}
+/*animacija??*/
+@-webkit-keyframes rubberBand {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+   }
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+   }
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+   }
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+   }
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+   }
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+   }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+   }
+}
+@keyframes rubberBand {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+   }
+    30% {
+        -webkit-transform: scale3d(1.25, 0.75, 1);
+        transform: scale3d(1.25, 0.75, 1);
+   }
+    40% {
+        -webkit-transform: scale3d(0.75, 1.25, 1);
+        transform: scale3d(0.75, 1.25, 1);
+   }
+    50% {
+        -webkit-transform: scale3d(1.15, 0.85, 1);
+        transform: scale3d(1.15, 0.85, 1);
+   }
+    65% {
+        -webkit-transform: scale3d(0.95, 1.05, 1);
+        transform: scale3d(0.95, 1.05, 1);
+   }
+    75% {
+        -webkit-transform: scale3d(1.05, 0.95, 1);
+        transform: scale3d(1.05, 0.95, 1);
+   }
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+   }
+}
 
 /*footer*/
-  footer {
+  .footer-pocetna {
     background-color:transparent;
     color:whitesmoke;
     bottom: 0px;
@@ -483,25 +780,20 @@ th {
     margin-bottom:0;
     font-size:15px;
     opacity:0.6;
-    width: 100%;
-    /* position: absolute; */
-    display: flex;
+    position: absolute;
     align-items: center;
     justify-content: center;
+    display: flex;
     position: fixed;
   }
-  footer a{
+  .footer-pocetna a, .footer-autori a{
     color: whitesmoke;
   }
-  footer .row {
-    justify-content: center;
-    align-items: center;
+  
+   .copyright {
+    padding-left: 850px;
+    
   }
-    .copyright {
-    /* padding-left: 850px; */
-    width: 100%;
-    text-align: center;
-  } 
 
 /*uputstvo*/
 .uputstvo{
@@ -920,3 +1212,99 @@ th {
     font-weight: 500;
 }
 
+/*pop-up windows*/
+
+a,
+a:link {
+  font-family: inherit;
+  text-decoration: none;
+}
+
+a:focus {
+  outline: none;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+
+/* box */
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 4rem 2rem;
+}
+
+
+.box__p,
+.box__info,
+.box__note {
+  font-size: 1.6rem;
+}
+
+.box__info {
+  margin-top: 6rem;
+}
+
+.box__note {
+  line-height: 2;
+}
+
+
+/* modal */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #0d0925;
+}
+
+.modal-container:target {
+  display: flex;
+}
+
+.modal {
+  width: 60rem;
+  padding: 4rem 2rem;
+  border-radius: .8rem;
+  color: whitesmoke;
+  background-color: #0d0925;
+  box-shadow: 0px 0px 20px rgba(252, 56, 56, 0.3);
+  position: relative;
+
+  overflow: hidden;
+}
+
+.modal__title {
+  font-size: 3.2rem;
+}
+
+.modal__text {
+  padding: 0 4rem;
+  margin-top: 4rem;
+  font-size: 1.6rem;
+  line-height: 2;
+}
+
+
+/* link-... */
+.link-1 {
+  font-size: 1.8rem;
+  color: white;
+  background-color: #0d0925;
+  /*box-shadow: .4rem .4rem 2.4rem .2rem var(--shadow-1);*/
+  border-radius: 100rem;
+  padding: 1.4rem 3.2rem;
+
+  transition: .2s;
+}
