@@ -52,7 +52,7 @@ function setBuses(value) {
 	buses.forEach((bus, index) => {
 		busList.appendChild(createBusListItem(bus, index))
 	});
-	setSelectedBusIndex(null);
+	setSelectedBusIndex(selectedBusIndex < buses.length ? selectedBusIndex : null);
 }
 function setBook(value) {
 	book = value;
@@ -110,7 +110,8 @@ async function BookTickets(a) {
 			email: formBook.email,
 			karte: book.map(ticket => ({
 				red: ticket.row,
-				kolona: ticket.col
+				kolona: ticket.col,
+				broj: ticket.seat
 			}))
 		}
 		const method = "POST";
@@ -256,7 +257,7 @@ function createBusTable(bus) {
 				td.setAttribute("data-status", FREE)
 				td.style.backgroundColor = "gray";
 			}
-			td.addEventListener("click", seatClick(i, j))
+			td.addEventListener("click", seatClick(i, j, seatNumber))
 			tr.appendChild(td);
 		}
 		tbody.appendChild(tr)
@@ -264,7 +265,7 @@ function createBusTable(bus) {
 	table.appendChild(tbody)
 	return table;
 }
-function seatClick(row, col) {
+function seatClick(row, col, seatNumber) {
 	return e => {
 		const seat = e.target;
 		// console.dir(seat);
@@ -273,12 +274,12 @@ function seatClick(row, col) {
 			case RESERVED:
 				return;
 			case FREE:
-				setBook([...book, {row, col}])
+				setBook([...book, {row, col, seat: seatNumber}])
 				seat.setAttribute("data-status", BOOK);
 				seat.style.backgroundColor = "lime";
 				return;
 			case BOOK:
-				setBook(book.filter(el => !(el.row === row && el.col === col)))
+				setBook(book.filter(el => !(el.row === row && el.col === col && el.seat === seatNumber)))
 				seat.setAttribute("data-status", FREE);
 				seat.style.backgroundColor = "gray";
 				return;
