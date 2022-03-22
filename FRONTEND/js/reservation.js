@@ -18,6 +18,7 @@ const polazisteDOM = document.getElementById("polaziste")
 const destinacijaDOM = document.getElementById("destinacija")
 const cenaDOM = document.getElementById("cena")
 const polazakDOM = document.getElementById("polazak")
+const sedistaDOM = document.getElementById("sedista")
 const otkazDOM = document.getElementById("otkaz")
 
 otkazDOM.onclick = () => {
@@ -39,6 +40,7 @@ function setReservation(value) {
 	polazisteDOM.innerText = reservation.busId.polaziste;
 	destinacijaDOM.innerText = reservation.busId.destinacija;
 	cenaDOM.innerText = reservation.busId.cena;
+	sedistaDOM.innerText = reservation.sedista.map(seat => seat.broj).join(", ");
 	const d = new Date(reservation.busId.polazak)
 	polazakDOM.innerText = `${dveCifre(d.getDate())}.${dveCifre(d.getMonth()+1)}.${dveCifre(d.getFullYear())}. ${dveCifre(d.getHours())}:${dveCifre(d.getMinutes())}`;
 }

@@ -46,7 +46,6 @@ const makeReservation = async (req, res) => {
 		html: `
 		<h1>Express Bus Booking</h1>
 		<h5>Uspešna rezervacija</h5>
-		<p>Id vaše rezervacije: ${reservation._id}</p>
 		<a href="${FRONTEND_URL}/reservation.html?id=${reservation._id}" target="_blank">Pregledaj rezervaciju</a>
 		`,
 		text: "Uspešno ste rezervisali karte"

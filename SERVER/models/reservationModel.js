@@ -9,6 +9,10 @@ const seatShema = new mongoose.Schema({
         type: Number,
         required: [true, "Kolona je obavezna"]
     },
+    broj: {
+        type: Number,
+        required: [true, "Broj sedista je obavezan"]
+    }
     
 }, {_id : false})
 

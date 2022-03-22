@@ -1,0 +1,336 @@
+openapi: 3.0.0
+info:
+  title: Express Bus Booking
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://ebb-express-bus-booking.herokuapp.com/api
+  variables: {}
+paths:
+  /bus:
+    get:
+      tags:
+      - Bus
+      summary: Get All Buses
+      operationId: GetAllBuses
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      parameters:
+        - name: polaziste
+          in: query
+          required: false
+          schema:
+            type: string
+            example: 
+        - name: destinacija
+          in: query
+          required: false
+          schema:
+            type: string
+            example: 
+        - name: cenaod
+          in: query
+          description: 'Minimalna cena autobuske karte (uključujući)'
+          required: false
+          schema:
+            type: integer
+            example: 
+        - name: cenado
+          in: query
+          description: 'Maximalna cena autobuske karte (uključujući)'
+          required: false
+          schema:
+            type: integer
+            example: 
+        - name: datumod
+          in: query
+          description: 'Najraniji datum polaska autobusa (uključujući) u formatu dd-mm-gggg'
+          required: false
+          schema:
+            type: string
+            example: 
+        - name: datumdo
+          in: query
+          description: 'Najkasniji datum polaska autobusa (uključujući) u formatu dd-mm-gggg'
+          required: false
+          schema:
+            type: string
+            example: 
+    post:
+      tags:
+      - Bus
+      summary: Create Bus
+      operationId: CreateBus
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBusRequest'
+            example:
+              polaziste: Kraljevo
+              destinacija: Beograd
+              cena: 1800
+              polazak:
+                godina: 2022
+                mesec: 3
+                dan: 18
+                sat: 15
+                minut: 0
+              brojRedova: 13
+              brojKolona: 4
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /bus/{id}:
+    get:
+      tags:
+      - Bus
+      summary: Get Single Bus
+      operationId: GetSingleBus
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 622be756173cfc99e2a0c156
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    delete:
+      tags:
+      - Bus
+      summary: Delete Bus
+      operationId: DeleteBus
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 622be756173cfc99e2a0c156
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /reservation:
+    post:
+      tags:
+      - Reservation
+      summary: Make Reservation
+      operationId: MakeReservation
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MakeReservationRequest'
+            example:
+              busId: 62375e1e4ffd9214232d5b62
+              ime: Marko
+              prezime: Markovic
+              email: primer@gmail.com
+              karte:
+              - red: 0
+                kolona: 2
+                broj: 3
+              - red: 0
+                kolona: 3
+                broj: 4
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /reservation/{id}:
+    delete:
+      tags:
+      - Reservation
+      summary: Cancel Reservation
+      operationId: CancelReservation
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 6238dc1aad7d5e30a2f3597e
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    get:
+      tags:
+      - Reservation
+      summary: Get Single Reservation
+      operationId: GetSingleReservation
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    CreateBusRequest:
+      title: CreateBusRequest
+      required:
+      - polaziste
+      - destinacija
+      - cena
+      - polazak
+      - brojRedova
+      - brojKolona
+      type: object
+      properties:
+        polaziste:
+          type: string
+        destinacija:
+          type: string
+        cena:
+          type: integer
+          format: int32
+        polazak:
+          $ref: '#/components/schemas/Polazak'
+        brojRedova:
+          type: integer
+          format: int32
+        brojKolona:
+          type: integer
+          format: int32
+      example:
+        polaziste: Kraljevo
+        destinacija: Beograd
+        cena: 1800
+        polazak:
+          godina: 2022
+          mesec: 3
+          dan: 18
+          sat: 15
+          minut: 0
+        brojRedova: 13
+        brojKolona: 4
+    Polazak:
+      title: Polazak
+      required:
+      - godina
+      - mesec
+      - dan
+      - sat
+      - minut
+      type: object
+      properties:
+        godina:
+          type: integer
+          format: int32
+        mesec:
+          type: integer
+          format: int32
+        dan:
+          type: integer
+          format: int32
+        sat:
+          type: integer
+          format: int32
+        minut:
+          type: integer
+          format: int32
+      example:
+        godina: 2022
+        mesec: 3
+        dan: 18
+        sat: 15
+        minut: 0
+    MakeReservationRequest:
+      title: MakeReservationRequest
+      required:
+      - busId
+      - ime
+      - prezime
+      - email
+      - karte
+      type: object
+      properties:
+        busId:
+          type: string
+        ime:
+          type: string
+        prezime:
+          type: string
+        email:
+          type: string
+        karte:
+          type: array
+          items:
+            $ref: '#/components/schemas/Karte'
+          description: ''
+      example:
+        busId: 62375e1e4ffd9214232d5b62
+        ime: Mihajlo
+        prezime: Milojevic
+        email: milojevicm374@gmail.com
+        karte:
+        - red: 0
+          kolona: 2
+          broj: 3
+        - red: 0
+          kolona: 3
+          broj: 4
+    Karte:
+      title: Karte
+      required:
+      - red
+      - kolona
+      - broj
+      type: object
+      properties:
+        red:
+          type: integer
+          format: int32
+        kolona:
+          type: integer
+          format: int32
+        broj:
+          type: integer
+          format: int32
+      example:
+        red: 0
+        kolona: 2
+        broj: 3
+tags:
+- name: Bus
+- name: Reservation

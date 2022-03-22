@@ -13,6 +13,10 @@ const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs")
+const docs = YAML.load("./docs.yaml");
+
 const port = process.env.PORT || 5000;
 
 server.set('trust proxy', 1);
@@ -31,7 +35,9 @@ server.use(xss());
 server.use("/api/bus", busRouter);
 server.use("/api/reservation", reservationRouter);
 
-server.get("/", (req, res) => res.send("Express Bus Book"))
+server.use("/api/docs", swaggerUI.serve, swaggerUI.setup(docs))
+
+server.get("/", (req, res) => res.send("<h1>Express Bus Book</h1> <a href='/api/docs'>dokumentacija</a>"))
 
 server.use(notFound);
 server.use(errorHandler);
