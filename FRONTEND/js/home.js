@@ -68,6 +68,7 @@ function setSelectedBusIndex(value) {
 	const d = new Date(bus.polazak);
 	bookForm.style.display = "block";
 	document.querySelector("[name=ruta]").value = bus.polaziste + " - " + bus.destinacija;
+	console.log(`${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`);
 	document.querySelector("[name=book-datum]").value = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`
 	document.querySelector("[name=book-vreme]").value = `${d.getHours()}:${d.getMinutes()}`
 	document.querySelector("[name=book-cena]").value = bus.cena;
@@ -230,7 +231,7 @@ function createBusListItem(bus, index) {
 	tr.innerHTML = `
 		<td class="col-md">${bus.polaziste}</td>
 		<td class="col-md">${bus.destinacija}</td>
-		<td class="col-md"${dveCifre(d.getDate())}.${dveCifre(d.getMonth()+1)}.${dveCifre(d.getFullYear())}.</td>
+		<td class="col-md">${dveCifre(d.getDate())}.${dveCifre(d.getMonth()+1)}.${dveCifre(d.getFullYear())}.</td>
 		<td class="col-md">${dveCifre(d.getHours())}:${dveCifre(d.getMinutes())}</td>
 		<td class="col-md">${bus.cena}</td>
 	`
