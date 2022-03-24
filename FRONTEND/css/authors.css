@@ -157,4 +157,7 @@
     cursor: pointer;
     font-weight: 500;
 }
-
+.kartice a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
