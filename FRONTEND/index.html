@@ -67,50 +67,180 @@
 	</section>
 	<!-- HERO SECTION -->
 
-	<div class="container-fluid filter-form" id="filter-form">
-		<div class="row">
-			<div class="col-md-5">
-				<!-- FILTER FORM -->
-				<form id="forma">
-					<label>Polazište: </label>
-					<input type="text" name="polaziste" id="polaziste">
-					<br/>
-					<label>Destinacija: </label>
-					<input type="text" name="destinacija">
-					<br/>
-					<label>Minimalna cena: </label>
-					<input type="number" name="cenaod">
-					<br/>
-					<label>Maximalna cena: </label>
-					<input type="number" name="cenado">
-					<br/>
-					<label>Od datuma: </label>
-					<input type="date" name="datumod">
-					<br/>
-					<label>Do datuma: </label>
-					<input type="date" name="datumdo">
-					<br/>
-					<button type="submit">Pretrazi</button>
-				</form>
-				<!-- FILTER FORM -->
+	<div class="container forma" id="filter-form">
+		<div class="row" >
+			<div class="col-md-6" >        
+				<div class="section" id="forma1"> <!--style="display: none;"-->
+					<div class="section-center">
+						<div class="container">
+							<div class="row">
+								<div class="booking-form">
+									<div class="form-header">
+										<h1>Pretraga</h1>
+									</div>
+									<form id="forma">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control " type="text"  name="polaziste" placeholder="Polazište">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" type="text" name="destinacija" placeholder="Odredište">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" name="datumod" type="date">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" name="datumdo"type="date">
+												</div>
+											</div>            
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control"  name="cenaod" type="text" placeholder="Min cena">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" name="cenado" type="text" placeholder="Max cena">
+												</div>
+											</div>          
+										</div>
+										<div class="row">
+										<div class="col-md-12">
+											<div class="form-btn">
+											<button class="dugme2">Filtriraj</button>
+											</div>
+										</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-7">
-				<!-- BUS SELECTION -->
-				<div id="allBuses"></div>
-				<!-- BUS SELECTION -->
+			<div class="col-md-6">
+				<div class="section" id="lista1">
+					<div class="section-center tabela">
+						<div class="container">
+							<table class="table table-fixed table-condensed">
+							  <thead>
+								<tr>
+								  <th class="col-md">Polazište</th>
+								  <th class="col-md">Odredište</th>
+								  <th class="col-md">Datum polaska</th>
+								  <th class="col-md">Vreme polaska</th>
+								  <th class="col-md">Cena</th>
+								</tr>
+							  </thead>
+							  <tbody  id="allBuses">
+								
+							  </tbody>
+							</table>
+						  </div>
+
+					</div>
+				</div>      
 			</div>
 		</div>
 	</div>
 	
+	<div class="container forma" id="book-form" style="display: none;">
+		<div class="row" >
+			<div class="col-md-6">
+				<div class="bus" id="selectedBus">
+				</div>
+			</div>
+			<div class="col-md-6" >        
+				<div class="section" id="forma1"> <!--style="display: none;"-->
+					<div class="section-center">
+						<div class="container">
+							<div class="row">
+								<div class="booking-form">
+									<div class="form-header">
+										<h1>Rezervacija</h1>
+									</div>
+									<form id="book"> 
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" name="ime" type="text" placeholder="Ime">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" name="prezime" type="text" placeholder="Prezime">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input class="form-control" name="email" type="email" placeholder="Email">
+												</div>
+											</div>           
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input class="form-control" disabled name="ruta" type="text" placeholder="Ruta">
+												</div>
+											</div>
+										</div> 
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input class="form-control" name="book-datum" disabled type="date" placeholder="Datum">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input class="form-control" name="book-vreme" disabled type="time" placeholder="Vreme">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<input class="form-control" name="book-cena" disabled type="text" placeholder="Cena">
+												</div>
+											</div>
+										</div>        
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-btn">
+												<input type="submit" class="dugme2" value="REZERVIŠI">
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+ <!--
 	<div class="container-fluid book-form" id="book-form" style="display: none;">
 		<div class="row">
 			<div class="col-md-7">
-				<!-- SELECTED BUS -->
 				<div id="selectedBus"></div>
-				<!-- SELECTED BUS -->
 			</div>
 			<div class="col-md-5">
-				<!-- BOOK FORM -->
 				<form id="book">
 					<label>Ime: </label>
 					<input type="text" name="ime">
@@ -123,11 +253,10 @@
 					<br/>
 					<button type="submit">Rezervisi</button>
 				</form>
-				<!-- BOOK FORM -->
 			</div>
 		</div>
 	</div>
-
+-->
 	
 
 	<!-- FOOTER -->

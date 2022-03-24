@@ -64,8 +64,14 @@ function setSelectedBusIndex(value) {
 		bookForm.style.display = "none";
 		return;
 	}
+	const bus = buses[selectedBusIndex];
+	const d = new Date(bus.polazak);
 	bookForm.style.display = "block";
-	selectedBus.appendChild(createBusTable(buses[selectedBusIndex]));
+	document.querySelector("[name=ruta]").value = bus.polaziste + " - " + bus.destinacija;
+	document.querySelector("[name=book-datum]").value = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`
+	document.querySelector("[name=book-vreme]").value = `${d.getHours()}:${d.getMinutes()}`
+	document.querySelector("[name=book-cena]").value = bus.cena;
+	selectedBus.appendChild(createBusTable(bus));
 }
 function handleBookFormSubmit(e) {
 	e.preventDefault();
@@ -213,57 +219,59 @@ function createBusListItem(bus, index) {
 		return broj;
 	}
 	const d = new Date(bus.polazak);
-	const div = document.createElement("div");
-	div.classList.add("bus-list-item")
-	div.style.border = "1px solid black";
-	div.style.margin = "20px";
-	div.style.padding = "20px";
-	div.onclick = () => {
+	const tr = document.createElement("tr");
+	tr.classList.add("clickableRow")
+	tr.onclick = () => {
 		console.log("klik");
 		setBook([]);
 		setSelectedBusIndex(index)
 		document.getElementById("book-form").scrollIntoView();
 	};
-	div.innerHTML = `
-		<p>${bus.polaziste} - ${bus.destinacija}</p>
-		<p>${bus.cena}rsd</p>
-		<p>${dveCifre(d.getDate())}.${dveCifre(d.getMonth()+1)}.${dveCifre(d.getFullYear())}. ${dveCifre(d.getHours())}:${dveCifre(d.getMinutes())}</p>
+	tr.innerHTML = `
+		<td class="col-md">${bus.polaziste}</td>
+		<td class="col-md">${bus.destinacija}</td>
+		<td class="col-md"${dveCifre(d.getDate())}.${dveCifre(d.getMonth()+1)}.${dveCifre(d.getFullYear())}.</td>
+		<td class="col-md">${dveCifre(d.getHours())}:${dveCifre(d.getMinutes())}</td>
+		<td class="col-md">${bus.cena}</td>
 	`
-	return div;
+	return tr;
 }
 const RESERVED = "reserved";
 const BOOK = "book";
 const FREE = "free";
 function createBusTable(bus) {
-	const table = document.createElement("table");
-	const tbody = document.createElement("tbody");
+	const cabin = document.createElement("ol");
+	cabin.classList.add("cabin")
 	let seatNumber = 0;
 	for(let i = 0; i < bus.sedista.length; i++) {
-		const tr = document.createElement("tr");
+		const red = document.createElement("li");
+		red.classList.add("row")
+		const ol = document.createElement("ol")
+		ol.classList.add("seats")
 		const row = bus.sedista[i];
 		for(let j = 0; j < row.length; j++) {
 			seatNumber++;
-			const td = document.createElement("td");
-			td.innerText = seatNumber;
+			const li = document.createElement("li");
+			li.classList.add("seat")
+			li.innerText = seatNumber;
 			if(row[j]) {
-				td.setAttribute("data-status", RESERVED)
-				td.style.backgroundColor = "red";
+				li.setAttribute("data-status", RESERVED)
+				li.style.backgroundColor = "#e3115d";
 			}
 			else if(book.find(seat => seat.row === i && seat.col === j)) {
-				td.setAttribute("data-status", BOOK)
-				td.style.backgroundColor = "lime";
+				li.setAttribute("data-status", BOOK)
+				li.style.backgroundColor = "#bada55";
 			}
 			else {
-				td.setAttribute("data-status", FREE)
-				td.style.backgroundColor = "gray";
+				li.setAttribute("data-status", FREE)
+				li.style.backgroundColor = "whitesmoke";
 			}
-			td.addEventListener("click", seatClick(i, j, seatNumber))
-			tr.appendChild(td);
+			li.addEventListener("click", seatClick(i, j, seatNumber))
+			red.appendChild(li);
 		}
-		tbody.appendChild(tr)
+		cabin.appendChild(red)
 	}
-	table.appendChild(tbody)
-	return table;
+	return cabin;
 }
 function seatClick(row, col, seatNumber) {
 	return e => {
@@ -276,12 +284,12 @@ function seatClick(row, col, seatNumber) {
 			case FREE:
 				setBook([...book, {row, col, seat: seatNumber}])
 				seat.setAttribute("data-status", BOOK);
-				seat.style.backgroundColor = "lime";
+				seat.style.backgroundColor = "#bada55";
 				return;
 			case BOOK:
 				setBook(book.filter(el => !(el.row === row && el.col === col && el.seat === seatNumber)))
 				seat.setAttribute("data-status", FREE);
-				seat.style.backgroundColor = "gray";
+				seat.style.backgroundColor = "whitesmoke";
 				return;
 		}
 	}
