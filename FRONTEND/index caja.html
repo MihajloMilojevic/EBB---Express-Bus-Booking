@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="sr-RS" class="loading">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- OTHER LINKS AND SCRIPTS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Stencil Std rel="stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>      
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+	<!-- OTHER LINKS AND SCRIPTS -->
+
+	<!-- CUSTOM CSS -->
+	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/home.css">
+	<link rel="stylesheet" href="./css/nav.css">
+	<link rel="stylesheet" href="./css/footer.css">
+	<!-- CUSTOM CSS -->
+
+	<title>EBB</title>
+</head>
+<body>
+	<!-- LOADING SCREEN -->
+	<div class="loading-screen">
+		<img src="./images/InfinityLoader.svg" alt="Loading">
+	</div>
+	<!-- LOADING SCREEN -->
+
+	<!-- NAVIGATION BAR -->
+	<nav class="nav">
+		<div class="container">
+			<div class="logo">
+				<a href="index.html">ebb</a>
+			</div>
+			<div id="mainListDiv" class="main_list">
+				<ul class="navlinks" id="linkovi">
+					<li><a href="index.html">Pocetna</a></li>
+					<li><a href="authors.html">O autorima</a></li>
+					<li><a href="instructions.html">Uputstvo</a></li>
+				</ul>
+			</div>
+		</div>
+		<span class="navTrigger">
+			<i></i>
+			<i></i>
+			<i></i>
+		</span>
+	</nav>
+	<!-- NAVIGATION BAR -->
+
+	<!-- HERO SECTION -->
+	<section class="home">
+		<div class="d-flex flex-column justify-content-center w-100 h-100">
+			<div class="d-flex flex-column justify-content-center align-items-center p-5 ">
+				<h1 class="fw-light text-light m-0 text-center">Dobrodošli na EBB - Express Bus Booking</h1><br/>
+				<a href="#filter-form" class="text-decoration-none text-center"><h5 class="fw-light text-light m-0">— Rezerviši svoju kartu brzo i lako! —</h5></a><br/><br/>
+				<a href="#filter-form" class="dugme"><span class="text">REZERVIŠI!</span></a>
+			</div>
+		</div>
+	</section>
+	<!-- HERO SECTION -->
+
+	<div class="container forma" style="float: left;">
+		<div class="row" >
+			<div class="col-md-6" >        
+				<div class="section" id="forma1"> <!--style="display: none;"-->
+					<div class="section-center">
+						<div class="container">
+							<div class="row">
+								<div class="booking-form">
+									<div class="form-header">
+										<h1>Pretraga</h1>
+									</div>
+									<form id="forma">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control " type="text"  name="polaziste" placeholder="Polazište">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" type="text" name="destinacija" placeholder="Odredište">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" name="datumod" type="date">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" name="datumdo"type="date">
+												</div>
+											</div>            
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control"  name="cenaod" type="text" placeholder="Min cena">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<input class="form-control" name="cenado" type="text" placeholder="Max cena">
+												</div>
+											</div>          
+										</div>
+										<div class="row">
+										<div class="col-md-12">
+											<div class="form-btn">
+											<button class="dugme2">Filtriraj</button>
+											</div>
+										</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6" style="float: right;">
+				<div class="section" id="lista1">
+					<div class="section-center tabela">
+						<div class="container">
+							<table class="table table-fixed table-condensed">
+							  <thead>
+								<tr>
+								  <th class="col-md">Polazište</th>
+								  <th class="col-md">Odredište</th>
+								  <th class="col-md">Datum polaska</th>
+								  <th class="col-md">Vreme polaska</th>
+								  <th class="col-md">Cena</th>
+								</tr>
+							  </thead>
+							  <tbody  id="allBuses">
+								
+							  </tbody>
+							</table>
+						  </div>
+
+					</div>
+				</div>      
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid book-form" id="book-form" style="display: none;">
+		<div class="row">
+			<div class="col-md-7">
+				<!-- SELECTED BUS -->
+				<div id="selectedBus"></div>
+				<!-- SELECTED BUS -->
+			</div>
+			<div class="col-md-5">
+				<!-- BOOK FORM -->
+				<form id="book">
+					<label>Ime: </label>
+					<input type="text" name="ime">
+					<br/>
+					<label>Prezime: </label>
+					<input type="text" name="prezime">
+					<br/>
+					<label>Email: </label>
+					<input type="text" name="email">
+					<br/>
+					<button type="submit">Rezervisi</button>
+				</form>
+				<!-- BOOK FORM -->
+			</div>
+		</div>
+	</div>
+
+	
+
+	<!-- FOOTER -->
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<p class="copyright">——<a href="index.html"> Express-Bus-Booking </a>© 2022 ——</p>
+			</div>
+		</div>
+	</footer>
+	<!-- FOOTER -->
+
+	
+	<!-- CUSTOM JAVASCRIPT -->
+	<script src="./js/nav.js" defer></script>
+	<script src="./js/footer.js" defer></script>
+	<script src="./js/home.js" defer></script>
+	<!-- CUSTOM JAVASCRIPT -->
+</body>
+</html>
